@@ -32,23 +32,17 @@ void separateurParTriplets(long double montant, int& nb1, int& nb2, int& nb3, in
  *      unité, dizaine, etc.. grâce à un flag.
  * paramètre: int chiffre, flag
  */
-string convertisseurChiffreEnLettres(int chiffre){
-	string resultat = "";
+string convertisseurChiffreEnLettres(int triplet){
+	string resultat = "test";
+	int centaine, dizaine, unite;
+
+	centaine = triplet/100;
+	dizaine = triplet/10 %10;
+	unite = triplet %10;
+
+
 
 	return resultat;
-}
-
-//fct 2
-/* nom: separateurEnChiffre
- * but: Reçoit un triplet de chiffres et le sépart en chiffre seule.
- * paramètre: int triplet
- */
-string separateurEnChiffres(int triplet){
-	string resultat = "";
-
-	for(int i = 1; i <= 100; i *= 10){
-		resultat += convertisseurChiffreEnLettres(triplet/i%10);
-	}
 }
 
 string montantEnVaudois(long double montant){
@@ -58,7 +52,9 @@ string montantEnVaudois(long double montant){
     //Appel de La fct SeparateurParTriplet
     separateurParTriplets(montant, nb1,nb2,nb3,nb4,nb5,nb6);
     // etc...
-
+    //rajouter une boucle qui permette de répéter la fonction pour chaque triplet
+    //rajouter un if qui gère le cas ou un triplet vaut 0
+	 resultat += convertisseurChiffreEnLettres(nb1);
 
     return resultat;
 }
