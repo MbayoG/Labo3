@@ -3,10 +3,27 @@
 //
 #include <string>
 #include <iostream>
-#include <iomanip>
-#include <math.h>
+//#include <iomanip>
+#include <cmath>
 
 using namespace std;
+
+//fct qui check le chiffre rentré par l'utilisateur
+void obtenirunbonNombre(long double montant) {
+    bool premier_saisie = true;
+    do {
+        cin.clear();
+        if (!premier_saisie) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        if (montant < 0) {
+            cout << "Erreur: Nombre negatif!" << endl;
+        } if (montant >= 1000000000000000) {
+            cout << "Erreur: Nombre trop grand!" << endl;
+        }
+        premier_saisie = false;
+    } while (!(cin >> montant && montant >= 0 && montant <= 999999999999999.99));
+}
 
 //fct 1
 /* nom: separateurParTriplets
@@ -14,15 +31,16 @@ using namespace std;
  *      Renvoie chaque triplet dans des variables déclarées dans la fonction montantEnVaudois.
  * paramètres: long double montant, int& nb1, int& nb2, int& nb3, int& nb4, int& nb5, int& nb6
  */
-void separateurParTriplets(long double montant, int& nb1, int& nb2, int& nb3, int& nb4, int& nb5, int& nb6){
-	long long montantEnLong = floor(montant);
-	nb6 = (montant - floor(montant))*100; //modifier l'arrondi pour les centimes
+void separateurParTriplets(long double montant, int &nb1, int &nb2, int &nb3, int &nb4, int &nb5, int &nb6) {
+    long long montantEnLong = floor(montant);
+    nb6 = (montant - floor(montant)) * 100; //modifier l'arrondi pour les centimes
 
-	nb5 = montantEnLong % 1000;	//centaine
-	nb4 = montantEnLong/1000 %1000;	//millier
-	nb3 = montantEnLong/1000000 %1000;	//etc...
-	nb2 = montantEnLong/1000000000 %1000;
-	nb1 = montantEnLong/1000000000000 %1000;	//Il pourrait être intéressant de trouver une manière plus élégante de faire ça.
+    nb5 = montantEnLong % 1000;    //centaine
+    nb4 = montantEnLong / 1000 % 1000;    //millier
+    nb3 = montantEnLong / 1000000 % 1000;    //etc...
+    nb2 = montantEnLong / 1000000000 % 1000;
+    nb1 = montantEnLong / 1000000000000 %
+          1000;    //Il pourrait être intéressant de trouver une manière plus élégante de faire ça.
 
 }
 
@@ -32,29 +50,176 @@ void separateurParTriplets(long double montant, int& nb1, int& nb2, int& nb3, in
  *      unité, dizaine, etc.. grâce à un flag.
  * paramètre: int chiffre, flag
  */
-string convertisseurChiffreEnLettres(int triplet){
-	string resultat = "test";
-	int centaine, dizaine, unite;
+string convertisseurChiffreEnLettres(int triplet) {
+    string resultat;
+    int centaine, dizaine, unite;
 
-	centaine = triplet/100;
-	dizaine = triplet/10 %10;
-	unite = triplet %10;
+    centaine = triplet / 100;
+    dizaine = triplet / 10 % 10;
+    unite = triplet % 10;
 
+    switch (centaine) //Ecriture des centaines
+    {
+        case 1:
+            resultat = "cent-";
+            break;
+        case 2:
+            resultat = "deux-cent-";
+            break;
+        case 3:
+            resultat = "trois-cent-";
+            break;
+        case 4:
+            resultat = "quatre-cent-";
+            break;
+        case 5:
+            resultat = "cinq-cent-";
+            break;
+        case 6:
+            resultat = "six-cent-";
+            break;
+        case 7:
+            resultat = "sept-cent-";
+            break;
+        case 8:
+            resultat = "huit-cent-";
+            break;
+        case 9:
+            resultat = "neuf-cent-";
+            break;
+        case 0:
+            resultat = "";
+            break;
+        default:
+            resultat += "";
+    }
 
+    switch (dizaine) //Ecriture des dizaines
+    {
+        case 1:
+            resultat += "dix-";
+            break;
+        case 2:
+            resultat += "vingt-";
+            break;
+        case 3:
+            resultat += "trente-";
+            break;
+        case 4:
+            resultat += "quarante-";
+            break;
+        case 5:
+            resultat += "cinquante-";
+            break;
+        case 6:
+            resultat += "soixante-";
+            break;
+        case 7:
+            resultat += "septante-";
+            break;
+        case 8:
+            resultat += "huitante-";
+            break;
+        case 9:
+            resultat += "nonante-";
+            break;
+        case 0:
+            resultat += "";
+            break;
+        default:
+            resultat += "";
+    }
 
-	return resultat;
+    switch (unite) //Ecriture des unitees
+    {
+        case 1:
+            resultat += "un";
+            break;
+        case 2:
+            resultat += "deux";
+            break;
+        case 3:
+            resultat += "trois";
+            break;
+        case 4:
+            resultat += "quatre";
+            break;
+        case 5:
+            resultat += "cinq";
+            break;
+        case 6:
+            resultat += "six";
+            break;
+        case 7:
+            resultat += "sept";
+            break;
+        case 8:
+            resultat += "huit";
+            break;
+        case 9:
+            resultat += "neuf";
+            break;
+        case 0:
+            resultat += "";
+            break;
+        default:
+            resultat += "";
+    }
+
+    return resultat;
 }
 
-string montantEnVaudois(long double montant){
-    string resultat = " test ";
+string montantEnVaudois(long double montant) {
+    string resultat;
     int nb1, nb2, nb3, nb4, nb5, nb6;
-
+    //Appel de la fct
+    obtenirunbonNombre(montant);
     //Appel de La fct SeparateurParTriplet
-    separateurParTriplets(montant, nb1,nb2,nb3,nb4,nb5,nb6);
+    separateurParTriplets(montant, nb1, nb2, nb3, nb4, nb5, nb6);
     // etc...
     //rajouter une boucle qui permette de répéter la fonction pour chaque triplet
     //rajouter un if qui gère le cas ou un triplet vaut 0
-	 resultat += convertisseurChiffreEnLettres(nb1);
+
+
+    //transformer ca en fonction pour éviter la répetiotions !!!
+    const string unite = " francs"; // Pour changer en euros facilement  PS : laisser un espace avant l'unité merci ^^
+    resultat += convertisseurChiffreEnLettres(nb1);
+    if (nb1 == 0) {
+        resultat += "";
+    } else {
+        resultat += "-billions-";
+    }
+    resultat += convertisseurChiffreEnLettres(nb2);
+    if (nb2 == 0) {
+        resultat += "";
+    } else {
+        resultat += "-milliards-";
+    }
+    resultat += convertisseurChiffreEnLettres(nb3);
+    if (nb3 == 0) {
+        resultat += "";
+    } else {
+        resultat += "-millions-";
+    }
+    resultat += convertisseurChiffreEnLettres(nb4);
+    if (nb4 == 0) {
+        resultat += "";
+    } else {
+        resultat += "-mille-";
+    }
+    resultat += convertisseurChiffreEnLettres(nb5);
+    resultat += unite;
+    if (nb6 == 0) {
+        resultat += "";
+    } else {
+        resultat += " et ";
+    }
+    resultat += convertisseurChiffreEnLettres(nb6);
+    if (nb6 == 0) {
+        resultat += "";
+    } else {
+        resultat += " centimes";
+    }
 
     return resultat;
 }
