@@ -3,7 +3,7 @@
 //
 #include <string>
 #include <iostream>
-//#include <iomanip>
+#include <iomanip>
 #include <cmath>
 
 using namespace std;
@@ -15,6 +15,8 @@ void obtenirunbonNombre(long double &montant) {
         cin.clear();
         if (!premier_saisie) {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin >> montant; // finir par EOF (Ctrl-D) ou autre chose qu'un nombre
+            cout << fixed << setprecision(2) << montant << endl; // arrondi different de celui de la fonction demandee
         }
         if (montant < 0) {
             cout << "Erreur: Nombre negatif!" << endl;
@@ -22,7 +24,7 @@ void obtenirunbonNombre(long double &montant) {
             cout << "Erreur: Nombre trop grand!" << endl;
         }
         premier_saisie = false;
-    } while (!(cin >> montant && montant >= 0 && montant <= 999999999999999.99));
+    } while (!(montant >= 0 && montant <= 999999999999999.99));
 }
 
 //fct 1
@@ -171,7 +173,7 @@ string convertisseurChiffreEnLettres(int triplet) {
 
 string montantEnVaudois(long double montant) {
     string resultat;
-    int nb1, nb2, nb3, nb4, nb5, nb6;
+    int nb1 = 0, nb2 = 0, nb3 = 0, nb4 = 0, nb5 = 0, nb6 = 0;
     //Appel de la fct
     obtenirunbonNombre(montant);
     //Appel de La fct SeparateurParTriplet
