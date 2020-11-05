@@ -9,7 +9,7 @@
 using namespace std;
 
 //fct qui check le chiffre rentré par l'utilisateur
-void obtenirunbonNombre(long double montant) {
+void obtenirunbonNombre(long double &montant) {
     bool premier_saisie = true;
     do {
         cin.clear();
