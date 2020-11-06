@@ -99,8 +99,35 @@ string convertisseurChiffreEnLettres(int triplet) {
     switch (dizaine) //Ecriture des dizaines
     {
         case 1:
-            resultat += "dix-";
-            break;
+           if (unite >= 1 && unite <= 6)
+           {
+              switch (unite)
+              {
+                 case 1:
+                    resultat += "onze";
+                    break;
+                 case 2:
+                    resultat += "douze";
+                    break;
+                 case 3:
+                    resultat += "treize";
+                    break;
+                 case 4:
+                    resultat += "quatorze";
+                    break;
+                 case 5:
+                    resultat += "quinze";
+                    break;
+                 case 6:
+                    resultat += "seize";
+                    break;
+                 default:
+                    resultat += "";
+              }
+           } else{
+              resultat += "dix-";
+           }
+          break;
         case 2:
             resultat += "vingt-";
             break;
@@ -132,42 +159,43 @@ string convertisseurChiffreEnLettres(int triplet) {
             resultat += "";
     }
 
-    switch (unite) //Ecriture des unitees
-    {
-        case 1:
-            resultat += "un";
-            break;
-        case 2:
-            resultat += "deux";
-            break;
-        case 3:
-            resultat += "trois";
-            break;
-        case 4:
-            resultat += "quatre";
-            break;
-        case 5:
-            resultat += "cinq";
-            break;
-        case 6:
-            resultat += "six";
-            break;
-        case 7:
-            resultat += "sept";
-            break;
-        case 8:
-            resultat += "huit";
-            break;
-        case 9:
-            resultat += "neuf";
-            break;
-        case 0:
-            resultat += "";
-            break;
-        default:
-            resultat += "";
+    if (dizaine != 1 || unite > 6) {
+       switch (unite) //Ecriture des unitees
+       {
+          case 1:
+             resultat += "un";
+             break;
+          case 2:
+             resultat += "deux";
+             break;
+          case 3:
+             resultat += "trois";
+             break;
+          case 4:
+             resultat += "quatre";
+             break;
+          case 5:
+             resultat += "cinq";
+             break;
+          case 6:
+             resultat += "six";
+             break;
+          case 7:
+             resultat += "sept";
+             break;
+          case 8:
+             resultat += "huit";
+             break;
+          case 9:
+             resultat += "neuf";
+             break;
+          case 0:
+             resultat += "";
+             break;
+          default:
+             resultat += "";
+       }
     }
-
     return resultat;
 }
 
