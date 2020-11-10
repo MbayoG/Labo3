@@ -33,15 +33,27 @@ void obtenirunbonNombre(long double &montant) {
  *      Renvoie chaque triplet dans des variables déclarées dans la fonction montantEnVaudois.
  * paramètres: long double montant, int& nb1, int& nb2, int& nb3, int& nb4, int& nb5, int& nb6
  */
-void separateurParTriplets(long double montant, int &nb1, int &nb2, int &nb3, int &nb4, int &nb5, int &nb6) {
+void separateurParTriplets(long double& montant, int &nb1, int &nb2, int &nb3, int &nb4, int &nb5, int &nb6) {
     long long montantEnLong = floor(montant);
-    nb6 = (montant - floor(montant)) * 100; //modifier l'arrondi pour les centimes
+    nb6 = (montant - floor(montant)) * 1000; //modifier l'arrondi pour les centimes
+    if(nb6 % 10 >= 5){
+    	nb6 = nb6/10 +1;
+    }else{
+    	nb6 = nb6 / 10;
+    }
+
+	 if(nb6 >= 100){
+		montant += nb6/100;
+		montantEnLong += nb6/100;
+		nb6 = nb6%100;
+	 }
 
     nb5 = montantEnLong % 1000;    //centaine
     nb4 = montantEnLong / 1000 % 1000;    //millier
     nb3 = montantEnLong / 1000000 % 1000;    //etc...
     nb2 = montantEnLong / 1000000000 % 1000;
     nb1 = montantEnLong / 1000000000000 % 1000;    //Il pourrait être intéressant de trouver une manière plus élégante de faire ça.
+
 
 }
 
@@ -230,6 +242,9 @@ string montantEnVaudois(long double montant) {
     }else{
 		 unite = " francs"; // Pour changer en euros facilement  PS : laisser un espace avant l'unité merci ^^
     }
+    if((!montant)){
+		 unite = "zero franc";
+    }
 
     resultat += convertisseurChiffreEnLettres(nb1, flagcentaine);
     if (nb1 == 0) {
@@ -280,7 +295,11 @@ string montantEnVaudois(long double montant) {
     if (nb6 == 0) {
         resultat += "";
     } else {
-        resultat += " centimes";
+    	if(nb6 == 1){
+    		resultat += " centime";
+    	}else{
+			resultat += " centimes";
+    	}
     }
 
     return resultat;
