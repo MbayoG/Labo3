@@ -106,7 +106,7 @@ string convertisseurChiffreEnLettres(int triplet, bool flagcentaine) {
         default:
             resultat += "";
     }
-    if(centaine && flagcentaine && !dizaine && !unite){
+    if(centaine && flagcentaine && !dizaine && !unite && centaine !=1){
     	resultat += "cents";
     } else if(centaine){
     	resultat += "cent";
@@ -178,6 +178,9 @@ string convertisseurChiffreEnLettres(int triplet, bool flagcentaine) {
             resultat += "";
     }
 
+    if(dizaine > 1 && unite == 1){
+    	resultat += "-et";
+    }
     if (dizaine != 1 || unite > 6) {
     	if((dizaine || centaine) && unite){
     		resultat += "-";
