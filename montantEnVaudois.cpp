@@ -210,7 +210,7 @@ string convertisseurChiffreEnLettres(int triplet, bool flagcentaine) {
 }
 
 string montantEnVaudois(long double montant) {
-    string resultat;
+    string resultat, unite;
     int nb1 = 0, nb2 = 0, nb3 = 0, nb4 = 0, nb5 = 0, nb6 = 0;
     bool flagcentaine = true;
     //Appel de la fct
@@ -223,7 +223,14 @@ string montantEnVaudois(long double montant) {
 
 
     //transformer ca en fonction pour éviter la répetitions !!!
-    const string unite = " francs"; // Pour changer en euros facilement  PS : laisser un espace avant l'unité merci ^^
+    if(floor(montant) == 1){
+		 unite = " franc";
+    } else if(!floor(montant)){
+    	unite = "";
+    }else{
+		 unite = " francs"; // Pour changer en euros facilement  PS : laisser un espace avant l'unité merci ^^
+    }
+
     resultat += convertisseurChiffreEnLettres(nb1, flagcentaine);
     if (nb1 == 0) {
         resultat += "";
@@ -264,9 +271,9 @@ string montantEnVaudois(long double montant) {
 	flagcentaine = true;
     resultat += convertisseurChiffreEnLettres(nb5, flagcentaine);
     resultat += unite;
-    if (nb6 == 0) {
+    if (nb6 == 0 || !floor(montant)) {
         resultat += "";
-    } else {
+    } else{
         resultat += " et ";
     }
     resultat += convertisseurChiffreEnLettres(nb6, flagcentaine);
