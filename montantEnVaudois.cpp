@@ -274,15 +274,27 @@ string montantEnVaudois(long double montant) {
 		 }
     }
     flagcentaine = false;
-    resultat += convertisseurChiffreEnLettres(nb4, flagcentaine);
-    if (nb4 == 0) {
-        resultat += "";
-    } else {
-        resultat += "-mille";
+    if(nb4 == 1){
+    	if(!nb1 && !nb2 && !nb3){
+    		resultat += "-";
+    	}
+    	resultat += "mille";
 		 if(nb5){
 			 resultat += "-";
 		 }
     }
+    else{
+		 resultat += convertisseurChiffreEnLettres(nb4, flagcentaine);
+		 if (nb4 == 0) {
+			 resultat += "";
+		 } else {
+			 resultat += "-mille";
+			 if(nb5){
+				 resultat += "-";
+			 }
+		 }
+    }
+
 	flagcentaine = true;
     resultat += convertisseurChiffreEnLettres(nb5, flagcentaine);
     resultat += unite;
