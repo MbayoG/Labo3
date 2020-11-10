@@ -253,7 +253,11 @@ string montantEnVaudois(long double montant) {
     if (nb1 == 0) {
         resultat += "";
     } else {
-        resultat += "-billions";
+       if(nb1 == 1){
+         resultat += " billion";
+       }else{
+          resultat += "-billions";
+       }
         if(nb2 || nb3 || nb4 || nb5){
         	resultat += "-";
         }
@@ -300,6 +304,13 @@ string montantEnVaudois(long double montant) {
 
 	flagcentaine = true;
     resultat += convertisseurChiffreEnLettres(nb5, flagcentaine);
+
+    //cas exception
+   if((nb1 || nb2 || nb3) && nb4 == 0 && nb5 == 0)
+   {
+      resultat += " de";
+   }
+
     resultat += unite;
     if (nb6 == 0 || !floor(montant)) {
         resultat += "";
