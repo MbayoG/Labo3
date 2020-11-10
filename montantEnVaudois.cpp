@@ -19,9 +19,9 @@ void obtenirunbonNombre(long double &montant) {
             cout << fixed << setprecision(2) << montant << endl; // arrondi different de celui de la fonction demandee
         }
         if (montant < 0) {
-            cout << "Erreur: Nombre negatif!" << endl;
+            cout << "erreur : montant negatif" << endl;
         } if (montant >= 1000000000000000) {
-            cout << "Erreur: Nombre trop grand!" << endl;
+            cout << "erreur : montant trop grand" << endl;
         }
         premier_saisie = false;
     } while (!(montant >= 0 && montant <= 999999999999999.99));
@@ -96,12 +96,13 @@ string convertisseurChiffreEnLettres(int triplet, bool flagcentaine) {
     }
     if(centaine && flagcentaine && !dizaine && !unite){
     	resultat += "cents";
-    } else if(centaine && !flagcentaine){
+    } else if(centaine){
     	resultat += "cent";
     }
-    if(dizaine || unite){
+    if((dizaine || unite) && centaine){
 		 resultat += "-";
     }
+
     switch (dizaine) //Ecriture des dizaines
     {
         case 1:
@@ -166,7 +167,7 @@ string convertisseurChiffreEnLettres(int triplet, bool flagcentaine) {
     }
 
     if (dizaine != 1 || unite > 6) {
-    	if(dizaine){
+    	if((dizaine || centaine) && unite){
     		resultat += "-";
     	}
        switch (unite) //Ecriture des unitees
@@ -227,27 +228,40 @@ string montantEnVaudois(long double montant) {
     if (nb1 == 0) {
         resultat += "";
     } else {
-        resultat += "-billions-";
+        resultat += "-billions";
+        if(nb2 || nb3 || nb4 || nb5){
+        	resultat += "-";
+        }
     }
     resultat += convertisseurChiffreEnLettres(nb2, flagcentaine);
     if (nb2 == 0) {
         resultat += "";
     } else {
-        resultat += "-milliards-";
+        resultat += "-milliards";
+		 if(nb3 || nb4 || nb5){
+			 resultat += "-";
+		 }
     }
     resultat += convertisseurChiffreEnLettres(nb3, flagcentaine);
     if (nb3 == 0) {
         resultat += "";
     } else {
-        resultat += "-millions-";
+        resultat += "-millions";
+		 if(nb4 || nb5){
+			 resultat += "-";
+		 }
     }
     flagcentaine = false;
     resultat += convertisseurChiffreEnLettres(nb4, flagcentaine);
     if (nb4 == 0) {
         resultat += "";
     } else {
-        resultat += "-mille-";
+        resultat += "-mille";
+		 if(nb5){
+			 resultat += "-";
+		 }
     }
+	flagcentaine = true;
     resultat += convertisseurChiffreEnLettres(nb5, flagcentaine);
     resultat += unite;
     if (nb6 == 0) {
