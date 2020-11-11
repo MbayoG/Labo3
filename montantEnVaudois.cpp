@@ -27,7 +27,9 @@ using namespace std;
  */
 void separateurParTriplets(long double &montant, int &nb1, int &nb2, int &nb3, int &nb4, int &nb5, int &nb6) {
     long long montantEnLong = floor(montant);
-    nb6 = (montant - floor(montant)) * 1000; //modifier l'arrondi pour les centimes
+
+    //Arrondie pour les centimes
+    nb6 = (montant - floor(montant)) * 1000;
     if (nb6 % 10 >= 5) {
         nb6 = nb6 / 10 + 1;
     } else {
@@ -44,8 +46,7 @@ void separateurParTriplets(long double &montant, int &nb1, int &nb2, int &nb3, i
     nb4 = montantEnLong / 1000 % 1000;    //millier
     nb3 = montantEnLong / 1000000 % 1000;    //etc...
     nb2 = montantEnLong / 1000000000 % 1000;
-    nb1 = montantEnLong / 1000000000000 %
-          1000;    //Il pourrait être intéressant de trouver une manière plus élégante de faire ça.
+    nb1 = montantEnLong / 1000000000000 % 1000;
 
 
 }
@@ -99,6 +100,7 @@ string convertisseurChiffreEnLettres(int triplet, bool flagcentaine) {
         default:
             resultat += "";
     }
+    //Testes pour les cas particuliers
     if (centaine && flagcentaine && !dizaine && !unite && centaine != 1) {
         resultat += "cents";
     } else if (centaine) {
@@ -169,6 +171,7 @@ string convertisseurChiffreEnLettres(int triplet, bool flagcentaine) {
             resultat += "";
     }
 
+   //Testes pour les cas particuliers
     if (dizaine > 1 && unite == 1) {
         resultat += "-et";
     }
@@ -224,12 +227,8 @@ string montantEnVaudois(long double montant) {
 
     //Appel de La fct SeparateurParTriplet
     separateurParTriplets(montant, nb1, nb2, nb3, nb4, nb5, nb6);
-    // etc...
-    //rajouter une boucle qui permette de répéter la fonction pour chaque triplet
-    //rajouter un if qui gère le cas ou un triplet vaut 0
 
 
-    //transformer ca en fonction pour éviter la répetitions !!!
     if (floor(montant) == 1) {
         unite = " franc";
     } else if (!floor(montant)) {
@@ -241,6 +240,7 @@ string montantEnVaudois(long double montant) {
         unite = "zero franc";
     }
 
+   //Ajout des unite mille, million, etc... jusqua billion
     resultat += convertisseurChiffreEnLettres(nb1, flagcentaine);
     if (nb1 == 0) {
         resultat += "";
@@ -296,7 +296,7 @@ string montantEnVaudois(long double montant) {
     flagcentaine = true;
     resultat += convertisseurChiffreEnLettres(nb5, flagcentaine);
 
-    //cas exception
+    //Cas particulier
     if ((nb1 || nb2 || nb3) && nb4 == 0 && nb5 == 0) {
         resultat += " de";
     }
@@ -308,6 +308,8 @@ string montantEnVaudois(long double montant) {
         resultat += " et ";
     }
     resultat += convertisseurChiffreEnLettres(nb6, flagcentaine);
+
+    //Ecriture des centimes
     if (nb6 == 0) {
         resultat += "";
     } else {
