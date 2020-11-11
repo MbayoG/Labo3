@@ -1,6 +1,16 @@
-//
-// Created by maany on 29.10.2020.
-//
+/*
+-----------------------------------------------------------------------------------
+Laboratoire : 03
+Nom du fichier : montantEnVaudois.ccp
+Auteur(s) : Ilan Ruiz De Porras, Felipe Alvarez, Gulain Mbayo
+Date creation : 29.10.2020
+But : Un utilisateur entre un nombre comprise entre 0 et 999999999999999.99. Le programe control si le nombre correspond
+ 		à ce critère, puis le divise en groupe de trois chiffres (deux pour ceux après la virgule), puis les convertit
+ 		dans leur version litéraire.
+Remarque(s) : /
+Compilateur : Mingw-w64 g++ 8.1.0
+-----------------------------------------------------------------------------------
+*/
 #include <string>
 #include <iostream>
 #include <iomanip>
